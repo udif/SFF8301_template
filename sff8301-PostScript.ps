@@ -1,0 +1,75 @@
+%!PS-Adobe-2.0
+
+%
+% SFF8301 drill template
+% Based on http://www.wdc.com/wdproducts/library/other/2579-771970.pdf
+% Can be converted from PS to PDF with https://ps2pdf.com/convert.cgi
+%
+% By udi Finkelstein
+%
+
+% General constants
+/inch {72 mul} def
+/mm {72 mul 25.4 div} def
+
+% crosshair size in inch
+/chs { 0.2 } def
+% drill size in inch
+/chc { 0.138 } def
+
+% draw crosshair
+/crosshair {newpath 0 0 chc 2 div inch 0 360 arc chs inch 2 div neg 0 moveto chs inch 0 rlineto stroke 0 chs inch 2 div neg moveto 0 chs inch rlineto stroke} def
+% draw a rectangle
+/rect {newpath 0 0 moveto dup 0 exch rlineto exch dup 0 rlineto exch dup neg 0 exch rlineto exch neg 0 rlineto closepath stroke} def
+
+%
+% SFF8301 constants. Names take from SFF8301 table 4
+%
+
+% Disk drive length
+/A2 {147 mm} def
+% Disk drive width
+/A3 {4 inch} def
+% Horizontal distance of holes from edge
+/A5 {0.125 inch} def
+% Distance from top of drive to top hole pair
+/A7 {1.625 inch} def
+% vertical distance between top and middle hole pairs
+/A6 {1.75 inch} def
+% vertical distance between top and bottom hole pairs
+/A13 {3 inch} def
+% Horizontal distance between 2 holes in a pair
+/A4 { A3 A5 2 mul sub} def
+
+% Draw a horizontal hole pair
+/holepair {A5 0 translate crosshair A4 0 translate crosshair A5 A4 add neg 0 translate} def
+
+%
+% Print setup
+%
+
+% Set color to black
+0 setgray
+% Change line width here if needed
+% 10 setlinewidth
+% Change here the X/Y proportions if your printer can't accurately do 1:1 prints
+1 1 scale
+% location on page
+1 inch 1 inch translate
+
+%
+% Start of print
+%
+
+% Disk drive rectangle
+A3 A2 rect
+% SATA/IDE connector
+gsave
+A3 0.2 mul A2 0.5 inch sub translate A3 0.6 mul 0.5 inch rect
+grestore
+% Top Hole pair
+0 A2 A7 sub translate holepair
+% Middle Hole pair
+0 A6 neg translate holepair
+% Bottom Hole pair
+0 A13 A6 sub neg translate holepair
