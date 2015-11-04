@@ -1,0 +1,77 @@
+%!PS-Adobe-2.0
+
+%
+% pcDuino3nano drill template
+% Based on:
+% http://www.linksprite.com/?page_id=815
+% https://s3.amazonaws.com/pcduino/Hardware/v3/PCDUINO_NANO_V02_1000M_LAN_.rar
+% Can be converted from PS to PDF with https://ps2pdf.com/convert.cgi
+%
+% By udi Finkelstein
+%
+
+% General constants
+/inch {72 mul} def
+/mm {72 mul 25.4 div} def
+
+% crosshair size in inch
+/chs { 0.2 } def
+% drill size in inch
+/chc { 0.138 } def
+% draw crosshair
+
+/crosshair {gsave translate newpath 0 0 chc 2 div inch 0 360 arc chs inch 2 div neg 0 moveto chs inch 0 rlineto stroke 0 chs inch 2 div neg moveto 0 chs inch rlineto stroke grestore} def
+% draw a rectangle
+/rect {newpath 0 0 moveto dup 0 exch rlineto exch dup 0 rlineto exch dup neg 0 exch rlineto exch neg 0 rlineto closepath stroke} def
+
+%
+% pcDuino3nano constants. Taken from the DXF file above, slightly larger than the board dimensions in the spec.
+%
+
+% Board length
+/board_length {95 mm} def
+% Board width
+/board_width {55.25 mm} def
+
+% Left down hole position from corner
+/LD_X {2.23 mm } def
+/LD_Y {2.23 mm } def
+
+% Right down hole position from corner
+/RD_X {2.90 mm } def
+/RD_Y {6.85 mm } def
+
+% Left up hole position from corner
+/LU_X {20.34 mm } def
+/LU_Y {2.45 mm } def
+
+% Right up hole position from corner
+/RU_X {2.65 mm } def
+/RU_Y {4.41 mm } def
+
+
+%
+% Print setup
+%
+
+% Set color to black
+0 setgray
+% Change line width here if needed
+% 10 setlinewidth
+% Change here the X/Y proportions if your printer can't accurately do 1:1 prints
+1 1 scale
+% location on page
+1 inch 1 inch translate
+
+%
+% Start of print
+%
+
+% Disk drive rectangle
+board_width board_length rect
+
+% Draw 4 holes
+LD_X LD_Y crosshair
+board_width RD_X sub RD_Y crosshair
+LU_X board_length LU_Y sub crosshair
+board_width RU_X sub board_length RU_Y sub crosshair
